@@ -1,0 +1,27 @@
+{
+  "name": "bender_bot",
+  "version": "1.0.0",
+  "description": "bot for telegram",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pusachev/bender_bot.git"
+  },
+  "keywords": [
+    "Telegram",
+    "bot"
+  ],
+  "author": "Pavel Usachev",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/pusachev/bender_bot/issues"
+  },
+  "homepage": "https://github.com/pusachev/bender_bot#readme",
+  "dependencies": {
+    "config": "^1.25.1",
+    "node-telegram-bot-api": "^0.26.0"
+  }
+}
