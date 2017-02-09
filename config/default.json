@@ -1,5 +1,15 @@
 {
   "bot": {
     "token":"%secrettoken%"
+  },
+  "mongoose": {
+      "uri": "mongodb://localhost/bender_bot",
+      "options": {
+          "server": {
+              "socketOptions": {
+                "keepAlive": 1
+              }
+          }
+      }
   }
 }

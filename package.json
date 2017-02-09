@@ -22,6 +22,8 @@
   "homepage": "https://github.com/pusachev/bender_bot#readme",
   "dependencies": {
     "config": "^1.25.1",
+    "debug": "^2.6.0",
+    "mongoose": "^4.8.1",
     "node-telegram-bot-api": "^0.26.0"
   }
 }

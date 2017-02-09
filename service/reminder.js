@@ -3,6 +3,9 @@
  * @copyright Copyright (c) 2017, Pavel Usachev
  */
 
+var Reminder = require("../models/reminder");
+var debug = require("debug")("reminder");
+
 module.exports = {
     bot: null,
     notes: [],
@@ -10,8 +13,18 @@ module.exports = {
         this.bot = bot;
         setInterval(this.checkReminders, 1000);
     },
-    add: function (userId,msg, time) {
-        this.notes.push({'uid': userId, 'time':time, 'message':msg});
+    add: function (userId, msg, time) {
+        Reminder.create({
+            uid: userId,
+            time: time,
+            message: msg
+        }, function (err, reminder) {
+            if (err) {
+                bot.sendMessage(userId, "Something went wrong with your request");
+                debug(err);
+            }
+            this.bot.sendMessage(userId, "Ok, I reminde you in " + time);
+        });
     },
     update: function (index, time) {
         this.notes[index].time = time;
@@ -20,12 +33,27 @@ module.exports = {
         this.notes.splice(index, 1);
     },
     checkReminders: function () {
-        for (var i = 0; i < this.notes.length; i++){
-            var curDate = new Date().getHours() + ':' + new Date().getMinutes();
-            if ( this.notes[i]['time'] == curDate ) {
-                this.bot.sendMessage(this.notes[i]['uid'], 'Напоминаю, что вы должны: '+ notes[i]['text'] + ' сейчас.');
-                this.delete(i);
+        var timeNow = new Date();
+        debug(Math.floor(timeNow.getTime()));
+
+        Reminder.find({"time": {$lt: Math.floor(timeNow.getTime())}}, function(err, reminders) {
+            if (err) {
+                debug(err);
+                return;
             }
-        }
+
+            if(reminders.length == 0) {
+                debug("no messages to be sent");
+                return;
+            }
+
+            reminders.forEach(function(reminder) {
+                this.bot.sendMessage(reminder.uid, reminder.message);
+
+                Reminder.remove({_id: reminder._id}, function(err) {
+                    debug(err)
+                });
+            });
+        });
     }
 };
