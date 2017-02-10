@@ -25,5 +25,12 @@
     "debug": "^2.6.0",
     "mongoose": "^4.8.1",
     "node-telegram-bot-api": "^0.26.0"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-nodemon": "^0.4.2",
+    "nodemon": "^1.11.0"
   }
 }
