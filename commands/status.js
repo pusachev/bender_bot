@@ -27,4 +27,6 @@ module.exports = function (bot) {
     bot.onText(/\/статус/, function (msg) {
         bot.sendMessage(msg.chat.id, getUptime())
     });
+
+    console.log("Command /status init");
 };
